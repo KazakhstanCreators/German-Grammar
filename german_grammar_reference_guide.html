@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="de" class="h-full bg-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hammer's German Grammar - Reference & Interactive Guide</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Cinzel', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            navy: '#1a2b56',
+                            deepNavy: '#0f172a',
+                            gold: '#fbbf24',
+                            red: '#dc2626',
+                            brightRed: '#ef4444'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .routledge-diagonal {
+            background: linear-gradient(135deg, #1a2b56 0%, #1a2b56 45%, #ffffff 45.1%, #ffffff 100%);
+        }
+        .routledge-stripe-red {
+            background-color: #dc2626;
+        }
+        .routledge-stripe-gold {
+            background-color: #f59e0b;
+        }
+        .rotated-title {
+            transform: rotate(-35deg);
+            transform-origin: left bottom;
+        }
+        .flag-badge {
+            width: 80px;
+            height: 50px;
+            transform: skewX(-20deg);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+        }
+        .flag-stripe-black { background-color: #000000; height: 33.33%; }
+        .flag-stripe-red { background-color: #DD0000; height: 33.33%; }
+        .flag-stripe-gold { background-color: #FFCC00; height: 33.34%; }
+
+        .interactive-card {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .interactive-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.12);
+        }
+        /* Custom scrollbars */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-800 bg-slate-100 antialiased selection:bg-red-500 selection:text-white">
+
+    <header class="bg-brand-navy text-white border-b-4 border-red-600 sticky top-0 z-50 shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                
+                <!-- Logo & Brand Title -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="showPage('home')">
+                    <div class="w-8 h-8 rounded bg-white p-0.5 flex flex-col justify-between overflow-hidden shadow">
+                        <div class="h-1/3 bg-black"></div>
+                        <div class="h-1/3 bg-red-600"></div>
+                        <div class="h-1/3 bg-amber-400"></div>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-extrabold text-red-500 uppercase tracking-widest block leading-none" data-i18n="routledgeStyle">Routledge Reference Style</span>
+                        <span class="text-base sm:text-lg font-black tracking-tight text-white font-display">DEUTSCHE GRAMMATIK</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden xl:flex items-center space-x-1">
+                    <button onclick="showPage('home')" id="nav-home" class="nav-btn px-3 py-1.5 text-xs font-semibold text-amber-300 hover:text-white hover:bg-blue-900/60 rounded transition flex items-center gap-1.5">
+                        <i data-lucide="home" class="w-3.5 h-3.5"></i>
+                        <span data-i18n="navHome">ÜBERSICHT</span>
+                    </button>
+                    <button onclick="showPage('cases')" id="nav-cases" class="nav-btn px-3 py-1.5 text-xs font-semibold text-gray-200 hover:text-white hover:bg-blue-900/60 rounded transition" data-i18n="navCases">KASUS & ARTIKEL</button>
+                    <button onclick="showPage('verbs')" id="nav-verbs" class="nav-btn px-3 py-1.5 text-xs font-semibold text-gray-200 hover:text-white hover:bg-blue-900/60 rounded transition" data-i18n="navVerbs">VERB-KONJUGATOR</button>
+                    <button onclick="showPage('tekamolo')" id="nav-tekamolo" class="nav-btn px-3 py-1.5 text-xs font-semibold text-gray-200 hover:text-white hover:bg-blue-900/60 rounded transition" data-i18n="navTekamolo">SATZBAU (TeKaMoLo)</button>
+                    <button onclick="showPage('quiz')" id="nav-quiz" class="nav-btn px-3 py-1.5 text-xs font-semibold text-gray-200 hover:text-white hover:bg-blue-900/60 rounded transition" data-i18n="navQuiz">ÜBUNGEN (QUIZ)</button>
+                    <button onclick="showPage('vocab')" id="nav-vocab" class="nav-btn px-3 py-1.5 text-xs font-semibold text-gray-200 hover:text-white hover:bg-blue-900/60 rounded transition" data-i18n="navAudio">AUSSPRACHE & VOCAB</button>
+                </nav>
+
+                <div class="flex items-center space-x-3">
+                    
+                    <!-- Language Selection Dropdown -->
+                    <div class="relative bg-slate-900/80 rounded border border-blue-700/60 p-1 flex items-center">
+                        <i data-lucide="languages" class="w-4 h-4 text-amber-400 ml-1.5 mr-1"></i>
+                        <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-transparent text-white text-xs font-bold font-mono focus:outline-none cursor-pointer pr-1 py-0.5">
+                            <option value="de" class="bg-slate-900 text-white">DE (Deutsch)</option>
+                            <option value="en" class="bg-slate-900 text-white">EN (English)</option>
+                            <option value="ru" class="bg-slate-900 text-white">RU (Русский)</option>
+                        </select>
+                    </div>
+
+                    <!-- Audio Speed Toggle -->
+                    <button onclick="toggleAudioSpeed()" id="speedBtn" class="hidden sm:flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-amber-300 border border-blue-800 px-2.5 py-1 rounded text-xs font-mono transition" title="Sprechtempo">
+                        <i data-lucide="gauge" class="w-3.5 h-3.5"></i>
+                        <span>1.00x Tempo</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="bg-slate-900 border-b border-slate-800 text-white text-xs py-2 px-4 shadow-inner">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-2 font-mono" id="pageBreadcrumb">
+                <span class="text-amber-400 font-bold" data-i18n="lblPage">SEITE:</span>
+                <span id="currentPageTitle" class="text-gray-200 uppercase font-semibold">0. Hauptübersicht</span>
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <button onclick="prevPage()" id="prevPageBtn" class="bg-slate-800 hover:bg-slate-700 disabled:opacity-40 text-gray-300 px-2.5 py-1 rounded flex items-center gap-1 text-[11px] transition">
+                    <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+                    <span data-i18n="btnPrevPage">Vorherige Seite</span>
+                </button>
+                <span id="pageNumberBadge" class="bg-blue-950 px-2 py-0.5 rounded border border-blue-800 font-mono text-[11px] text-amber-300 font-bold">1 / 6</span>
+                <button onclick="nextPage()" id="nextPageBtn" class="bg-slate-800 hover:bg-slate-700 disabled:opacity-40 text-gray-300 px-2.5 py-1 rounded flex items-center gap-1 text-[11px] transition">
+                    <span data-i18n="btnNextPage">Nächste Seite</span>
+                    <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN MULTI-PAGE CONTAINER -->
+    <main class="flex-grow">
+
+        <div id="page-home" class="page-view py-8">
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+                <div class="bg-brand-navy rounded-2xl shadow-2xl overflow-hidden border border-slate-700 relative">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[440px]">
+                        
+                        <!-- Left Info Panel -->
+                        <div class="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-between text-white z-10">
+                            <div>
+                                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-600/30 border border-red-500/50 text-red-300 text-xs font-bold uppercase tracking-wider mb-6">
+                                    <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                                    <span data-i18n="heroBadge">Referenzhandbuch & Interaktiver Trainer</span>
+                                </div>
+                                <h1 class="text-3xl sm:text-5xl font-black font-display tracking-tight leading-none text-white mb-4">
+                                    HAMMER'S<br>
+                                    <span class="text-amber-400">GERMAN GRAMMAR</span>
+                                </h1>
+                                <p class="text-sm sm:text-base text-gray-300 max-w-xl font-normal leading-relaxed mb-8" data-i18n="heroDesc">
+                                    Meistern Sie die deutsche Grammatik präzise und fundiert. Wählen Sie eine Kapitel-Seite aus, um interaktiv zu trainieren.
+                                </p>
+                            </div>
+
+                            <div class="pt-6 border-t border-blue-900/80 flex flex-wrap gap-4 items-center justify-between text-xs font-semibold text-gray-300">
+                                <span class="text-amber-400 font-mono font-bold" data-i18n="heroEdition">7. AUFLAGE • EDITIONS-STIL</span>
+                                <div class="flex gap-4">
+                                    <span class="flex items-center gap-1"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> <span data-i18n="feat1">Interaktiver Artikel-Generator</span></span>
+                                    <span class="flex items-center gap-1"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> <span data-i18n="feat2">Muttersprachliche Audio-Engine</span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Routledge Visual Panel -->
+                        <div class="lg:col-span-5 bg-slate-900 relative flex flex-col items-center justify-center p-8 border-t lg:border-t-0 lg:border-l border-blue-900">
+                            <div class="flag-badge rounded mb-6 flex flex-col overflow-hidden">
+                                <div class="flag-stripe-black"></div>
+                                <div class="flag-stripe-red"></div>
+                                <div class="flag-stripe-gold"></div>
+                            </div>
+
+                            <div class="text-center space-y-2 text-white">
+                                <p class="text-amber-400 text-xs font-extrabold tracking-widest uppercase" data-i18n="heroAuthor">Prof. Martin Durrell Referenz-Leitfaden</p>
+                                <h2 class="text-2xl sm:text-3xl font-black font-display tracking-tight text-white leading-tight" data-i18n="heroDedicatedPages">
+                                    5 DEDIZIERTE<br>
+                                    KAPITEL-SEITEN
+                                </h2>
+                                <button onclick="showPage('cases')" class="mt-6 inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase px-6 py-3 rounded-lg shadow-lg transition transform hover:-translate-y-0.5">
+                                    <span data-i18n="card1Open">Kapitel 1 öffnen</span>
+                                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-black text-brand-navy font-display uppercase tracking-tight" data-i18n="chapOverviewTitle">KAPITEL-ÜBERSICHT (SEITEN-NAVIGATOR)</h2>
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider" data-i18n="chapOverviewSub">Wählen Sie ein Kapitel, um die dedizierte Lernseite zu öffnen</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Card 1 -->
+                    <div onclick="showPage('cases')" class="interactive-card bg-white p-6 rounded-xl border border-gray-200 shadow-sm cursor-pointer flex flex-col justify-between group hover:border-brand-navy">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="bg-red-100 text-red-700 text-[10px] font-black uppercase px-2.5 py-1 rounded">SEITE 1</span>
+                                <i data-lucide="layers" class="w-6 h-6 text-brand-navy group-hover:scale-110 transition"></i>
+                            </div>
+                            <h3 class="text-lg font-black text-slate-900 font-display uppercase group-hover:text-brand-navy" data-i18n="card1Title">Kasus & Artikel-Deklination</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed" data-i18n="card1Desc">Interaktiver Rechner für Nominativ, Akkusativ, Dativ & Genitiv. Adjektiv-Endungen und Wechselpräpositionen.</p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-brand-navy">
+                            <span data-i18n="card1Open">Kapitel 1 öffnen</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-red-600 group-hover:translate-x-1 transition"></i>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div onclick="showPage('verbs')" class="interactive-card bg-white p-6 rounded-xl border border-gray-200 shadow-sm cursor-pointer flex flex-col justify-between group hover:border-brand-navy">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="bg-blue-100 text-blue-700 text-[10px] font-black uppercase px-2.5 py-1 rounded">SEITE 2</span>
+                                <i data-lucide="clock" class="w-6 h-6 text-brand-navy group-hover:scale-110 transition"></i>
+                            </div>
+                            <h3 class="text-lg font-black text-slate-900 font-display uppercase group-hover:text-brand-navy" data-i18n="card2Title">Verb-Konjugator & Zeiten</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed" data-i18n="card2Desc">Vollständige Tabellen für Präsens, Präteritum, Perfekt und Konjunktiv II mit Schnellsuche.</p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-brand-navy">
+                            <span data-i18n="card2Open">Kapitel 2 öffnen</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-red-600 group-hover:translate-x-1 transition"></i>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div onclick="showPage('tekamolo')" class="interactive-card bg-white p-6 rounded-xl border border-gray-200 shadow-sm cursor-pointer flex flex-col justify-between group hover:border-brand-navy">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="bg-amber-100 text-amber-800 text-[10px] font-black uppercase px-2.5 py-1 rounded">SEITE 3</span>
+                                <i data-lucide="git-commit" class="w-6 h-6 text-brand-navy group-hover:scale-110 transition"></i>
+                            </div>
+                            <h3 class="text-lg font-black text-slate-900 font-display uppercase group-hover:text-brand-navy" data-i18n="card3Title">Satzbau (TeKaMoLo)</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed" data-i18n="card3Desc">Visuelle Satzbau-Reihenfolge: Temporal → Kausal → Modal → Lokal mit Live-Satzgenerierung.</p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-brand-navy">
+                            <span data-i18n="card3Open">Kapitel 3 öffnen</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-red-600 group-hover:translate-x-1 transition"></i>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div onclick="showPage('quiz')" class="interactive-card bg-white p-6 rounded-xl border border-gray-200 shadow-sm cursor-pointer flex flex-col justify-between group hover:border-brand-navy">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="bg-purple-100 text-purple-800 text-[10px] font-black uppercase px-2.5 py-1 rounded">SEITE 4</span>
+                                <i data-lucide="help-circle" class="w-6 h-6 text-brand-navy group-hover:scale-110 transition"></i>
+                            </div>
+                            <h3 class="text-lg font-black text-slate-900 font-display uppercase group-hover:text-brand-navy" data-i18n="card4Title">Grammatik Test & Quiz</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed" data-i18n="card4Desc">Praxis-Übungen mit Auswertung und Erklärungen zu allen Grammatikthemen.</p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-brand-navy">
+                            <span data-i18n="card4Open">Kapitel 4 öffnen</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-red-600 group-hover:translate-x-1 transition"></i>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div onclick="showPage('vocab')" class="interactive-card bg-white p-6 rounded-xl border border-gray-200 shadow-sm cursor-pointer flex flex-col justify-between group hover:border-brand-navy md:col-span-2 lg:col-span-1">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase px-2.5 py-1 rounded">SEITE 5</span>
+                                <i data-lucide="headphones" class="w-6 h-6 text-brand-navy group-hover:scale-110 transition"></i>
+                            </div>
+                            <h3 class="text-lg font-black text-slate-900 font-display uppercase group-hover:text-brand-navy" data-i18n="card5Title">Aussprache & Wortschatz</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed" data-i18n="card5Desc">Audio-Bibliothek nach Niveaustufen A1 bis C1 mit anpassbarem Sprechtempo.</p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-brand-navy">
+                            <span data-i18n="card5Open">Kapitel 5 öffnen</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-red-600 group-hover:translate-x-1 transition"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+        <div id="page-cases" class="page-view hidden py-12">
+            <section id="cases-engine" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between pb-4 border-b border-gray-300">
+                    <div>
+                        <span class="text-xs font-black text-red-600 uppercase tracking-widest block" data-i18n="sec1Chapter">KAPITEL 1 • DIE KASUS</span>
+                        <h2 class="text-3xl font-black text-brand-navy font-display uppercase tracking-tight" data-i18n="sec1Title">Interaktiver Kasus & Deklinations-Rechner</h2>
+                    </div>
+                    <p class="text-sm text-gray-600 max-w-md mt-2 md:mt-0" data-i18n="sec1Sub">
+                        Wählen Sie Genus, Numerus und Kasus, um die korrekten bestimmten/unbestimmten Artikel und Adjektiv-Endungen sofort zu berechnen.
+                    </p>
+                </div>
+
+                <!-- Case Calculator Interface -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <div class="lg:col-span-5 bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-6">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2" data-i18n="lblGender">1. Genus (Grammatisch):</label>
+                            <div class="grid grid-cols-4 gap-2" id="genderSelector">
+                                <button onclick="setCaseConfig('gender', 'm')" id="btn-g-m" class="gender-btn active bg-brand-navy text-white font-bold py-2 px-3 text-xs rounded border text-center transition">
+                                    <span data-i18n="genderM">Maskulin</span><br><span class="text-[10px] opacity-80">(der)</span>
+                                </button>
+                                <button onclick="setCaseConfig('gender', 'f')" id="btn-g-f" class="gender-btn bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-3 text-xs rounded border text-center transition">
+                                    <span data-i18n="genderF">Feminin</span><br><span class="text-[10px] opacity-80">(die)</span>
+                                </button>
+                                <button onclick="setCaseConfig('gender', 'n')" id="btn-g-n" class="gender-btn bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-3 text-xs rounded border text-center transition">
+                                    <span data-i18n="genderN">Neutral</span><br><span class="text-[10px] opacity-80">(das)</span>
+                                </button>
+                                <button onclick="setCaseConfig('gender', 'p')" id="btn-g-p" class="gender-btn bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-3 text-xs rounded border text-center transition">
+                                    <span data-i18n="genderP">Plural</span><br><span class="text-[10px] opacity-80">(die)</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2" data-i18n="lblCase">2. Kasus (Fall):</label>
+                            <div class="grid grid-cols-2 gap-2" id="caseSelector">
+                                <button onclick="setCaseConfig('case', 'nom')" id="btn-c-nom" class="case-btn active bg-brand-navy text-white font-bold py-2.5 px-3 text-xs rounded border flex flex-col items-start transition">
+                                    <span class="font-extrabold text-amber-300">NOMINATIV</span>
+                                    <span class="text-[10px] font-normal opacity-90" data-i18n="caseNomLabel">Subjekt (Wer / Was?)</span>
+                                </button>
+                                <button onclick="setCaseConfig('case', 'akk')" id="btn-c-akk" class="case-btn bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2.5 px-3 text-xs rounded border flex flex-col items-start transition">
+                                    <span class="font-extrabold text-red-600">AKKUSATIV</span>
+                                    <span class="text-[10px] font-normal opacity-90" data-i18n="caseAkkLabel">Direktes Objekt (Wen / Was?)</span>
+                                </button>
+                                <button onclick="setCaseConfig('case', 'dat')" id="btn-c-dat" class="case-btn bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2.5 px-3 text-xs rounded border flex flex-col items-start transition">
+                                    <span class="font-extrabold text-blue-700">DATIV</span>
+                                    <span class="text-[10px] font-normal opacity-90" data-i18n="caseDatLabel">Indirektes Objekt (Wem?)</span>
+                                </button>
+                                <button onclick="setCaseConfig('case', 'gen')" id="btn-c-gen" class="case-btn bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2.5 px-3 text-xs rounded border flex flex-col items-start transition">
+                                    <span class="font-extrabold text-purple-700">GENITIV</span>
+                                    <span class="text-[10px] font-normal opacity-90" data-i18n="caseGenLabel">Besitz / Zuweisung (Wessen?)</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2" data-i18n="lblAdjNoun">3. Beispiel Adjektiv & Nomen:</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="text" id="adjInput" value="gut" onkeyup="updateCaseDisplay()" placeholder="Adjektiv" data-i18n-ph="phAdj" class="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-brand-navy">
+                                <input type="text" id="nounInput" value="Mann" onkeyup="updateCaseDisplay()" placeholder="Nomen" data-i18n-ph="phNoun" class="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-brand-navy">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-7 space-y-4">
+                        <div class="bg-brand-navy text-white p-6 rounded-xl shadow-lg border border-blue-900 relative overflow-hidden">
+                            <div class="relative z-10 space-y-6">
+                                <div class="flex items-center justify-between border-b border-blue-800/80 pb-3">
+                                    <div>
+                                        <span class="text-xs text-amber-400 font-mono font-bold tracking-widest uppercase" id="resultHeaderKasus">NOMINATIV • MASKULIN</span>
+                                        <h3 class="text-xl font-black font-display" id="resultTitle">Subjekt-Form</h3>
+                                    </div>
+                                    <button onclick="speakCurrentPhrase()" class="bg-blue-800 hover:bg-blue-700 text-white p-2.5 rounded-full transition flex items-center justify-center" title="Aussprache hören">
+                                        <i data-lucide="volume-2" class="w-5 h-5"></i>
+                                    </button>
+                                </div>
+
+                                <div class="bg-slate-900/90 p-5 rounded-lg border border-blue-700/50 space-y-3">
+                                    <div class="text-xs text-gray-400 uppercase font-bold tracking-wider" data-i18n="lblDefArticle">Bestimmter Artikel (Definite Article):</div>
+                                    <div class="text-2xl sm:text-3xl font-black text-white font-mono tracking-wide" id="computedDefinite">
+                                        der <span class="text-amber-400 underline decoration-red-500 decoration-2">gute</span> Mann
+                                    </div>
+
+                                    <div class="text-xs text-gray-400 uppercase font-bold tracking-wider pt-2 border-t border-gray-800" data-i18n="lblIndefArticle">Unbestimmter Artikel (Indefinite Article):</div>
+                                    <div class="text-xl sm:text-2xl font-bold text-gray-200 font-mono" id="computedIndefinite">
+                                        ein <span class="text-amber-400 underline decoration-red-500 decoration-2">guter</span> Mann
+                                    </div>
+                                </div>
+
+                                <div class="bg-blue-900/40 p-4 rounded-lg border border-blue-800 text-xs text-gray-200 leading-relaxed space-y-2" id="explanationText">
+                                    <!-- Dynamic -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                            <h4 class="text-xs font-black text-gray-900 uppercase tracking-wider mb-3 flex items-center gap-2">
+                                <i data-lucide="compass" class="w-4 h-4 text-red-600"></i>
+                                <span data-i18n="rulePrepTitle">Wechselpräpositionen Merkregel (Akkusativ vs. Dativ)</span>
+                            </h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                                <div class="p-3 bg-red-50 rounded border border-red-200">
+                                    <span class="font-bold text-red-700 block uppercase" data-i18n="rulePrepAkk">Akkusativ = Wohin? (Bewegung / Ziel)</span>
+                                    <p class="text-gray-700 mt-1 font-mono">"Ich hänge das Bild an <strong>die</strong> Wand."</p>
+                                </div>
+                                <div class="p-3 bg-blue-50 rounded border border-blue-200">
+                                    <span class="font-bold text-blue-800 block uppercase" data-i18n="rulePrepDat">Dativ = Wo? (Ort / Zustand)</span>
+                                    <p class="text-gray-700 mt-1 font-mono">"Das Bild hängt an <strong>der</strong> Wand."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page Footer Pagination Controls -->
+                <div class="pt-8 border-t border-gray-200 flex items-center justify-between">
+                    <button onclick="showPage('home')" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold text-xs uppercase px-4 py-2 rounded flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                        <span data-i18n="btnToHome">Zur Übersicht</span>
+                    </button>
+                    <button onclick="showPage('verbs')" class="bg-brand-navy hover:bg-blue-900 text-white font-bold text-xs uppercase px-5 py-2.5 rounded shadow flex items-center gap-2">
+                        <span data-i18n="btnNextVerbs">Weiter: Kapitel 2 (Verben)</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <div id="page-verbs" class="page-view hidden py-12">
+            <section id="conjugator" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between pb-4 border-b border-gray-300">
+                    <div>
+                        <span class="text-xs font-black text-red-600 uppercase tracking-widest block" data-i18n="sec2Chapter">KAPITEL 2 • VERB-KONJUGATION</span>
+                        <h2 class="text-3xl font-black text-brand-navy font-display uppercase tracking-tight" data-i18n="sec2Title">Deutscher Verb-Konjugator</h2>
+                    </div>
+                    <p class="text-sm text-gray-600 max-w-md mt-2 md:mt-0" data-i18n="sec2Sub">
+                        Suchen Sie nach wichtigen Verben und betrachten Sie die Formen für Präsens, Präteritum, Perfekt und Konjunktiv II.
+                    </p>
+                </div>
+
+                <!-- Search & Presets -->
+                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 flex flex-col md:flex-row gap-4 items-center justify-between">
+                    <div class="w-full md:w-96 relative">
+                        <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-3.5 text-gray-400"></i>
+                        <input type="text" id="verbSearchInput" onkeyup="filterVerbs()" placeholder="Verb suchen (z.B. sein, haben, werden, gehen)..." data-i18n-ph="phVerbSearch" class="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-brand-navy">
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 w-full md:w-auto" id="verbPresets">
+                        <button onclick="loadVerb('sein')" class="verb-preset-btn active bg-brand-navy text-white text-xs font-bold px-3 py-1.5 rounded transition">sein</button>
+                        <button onclick="loadVerb('haben')" class="verb-preset-btn bg-gray-200 text-gray-800 hover:bg-gray-300 text-xs font-bold px-3 py-1.5 rounded transition">haben</button>
+                        <button onclick="loadVerb('werden')" class="verb-preset-btn bg-gray-200 text-gray-800 hover:bg-gray-300 text-xs font-bold px-3 py-1.5 rounded transition">werden</button>
+                        <button onclick="loadVerb('gehen')" class="verb-preset-btn bg-gray-200 text-gray-800 hover:bg-gray-300 text-xs font-bold px-3 py-1.5 rounded transition">gehen</button>
+                        <button onclick="loadVerb('sprechen')" class="verb-preset-btn bg-gray-200 text-gray-800 hover:bg-gray-300 text-xs font-bold px-3 py-1.5 rounded transition">sprechen</button>
+                        <button onclick="loadVerb('können')" class="verb-preset-btn bg-gray-200 text-gray-800 hover:bg-gray-300 text-xs font-bold px-3 py-1.5 rounded transition">können</button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 text-white rounded-xl shadow-xl border border-slate-800 overflow-hidden">
+                    <div class="bg-brand-navy px-6 py-5 border-b border-blue-900 flex flex-wrap items-center justify-between gap-4">
+                        <div>
+                            <span class="text-xs text-amber-400 font-mono font-bold uppercase tracking-wider" id="verbTypeBadge">UNREGELMÄSSIGES VERB (STARK)</span>
+                            <h3 class="text-3xl font-black font-display tracking-tight text-white flex items-center gap-3">
+                                <span id="verbInfinitive">sein</span>
+                                <span class="text-sm font-normal text-gray-300 italic font-sans" id="verbTranslation">(to be)</span>
+                            </h3>
+                        </div>
+                        <div class="flex items-center gap-3 bg-blue-950/80 px-4 py-2 rounded-lg border border-blue-800/60 text-xs">
+                            <div><span class="text-gray-400 block" data-i18n="lblAuxiliary">Hilfsverb:</span> <strong class="text-amber-300" id="verbAuxiliary">sein</strong></div>
+                            <div class="h-6 w-px bg-blue-800"></div>
+                            <div><span class="text-gray-400 block" data-i18n="lblPartizip">Partizip II:</span> <strong class="text-amber-300" id="verbPartizip">gewesen</strong></div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-slate-800/80 p-4 rounded-lg border border-slate-700">
+                            <h4 class="text-xs font-black text-amber-400 uppercase tracking-widest pb-2 mb-3 border-b border-slate-700" data-i18n="tensePraesens">Präsens (Present)</h4>
+                            <ul class="space-y-2 text-xs font-mono" id="conjugationPraesens"></ul>
+                        </div>
+                        <div class="bg-slate-800/80 p-4 rounded-lg border border-slate-700">
+                            <h4 class="text-xs font-black text-red-400 uppercase tracking-widest pb-2 mb-3 border-b border-slate-700" data-i18n="tensePraeteritum">Präteritum (Simple Past)</h4>
+                            <ul class="space-y-2 text-xs font-mono" id="conjugationPraeteritum"></ul>
+                        </div>
+                        <div class="bg-slate-800/80 p-4 rounded-lg border border-slate-700">
+                            <h4 class="text-xs font-black text-emerald-400 uppercase tracking-widest pb-2 mb-3 border-b border-slate-700" data-i18n="tensePerfekt">Perfekt (Perfect)</h4>
+                            <ul class="space-y-2 text-xs font-mono" id="conjugationPerfekt"></ul>
+                        </div>
+                        <div class="bg-slate-800/80 p-4 rounded-lg border border-slate-700">
+                            <h4 class="text-xs font-black text-purple-400 uppercase tracking-widest pb-2 mb-3 border-b border-slate-700" data-i18n="tenseKonjunktiv">Konjunktiv II (Subjunctive)</h4>
+                            <ul class="space-y-2 text-xs font-mono" id="conjugationKonjunktiv"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page Footer Pagination Controls -->
+                <div class="pt-8 border-t border-gray-200 flex items-center justify-between">
+                    <button onclick="showPage('cases')" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold text-xs uppercase px-4 py-2 rounded flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                        <span data-i18n="btnPrevCases">Zurück: Kapitel 1 (Kasus)</span>
+                    </button>
+                    <button onclick="showPage('tekamolo')" class="bg-brand-navy hover:bg-blue-900 text-white font-bold text-xs uppercase px-5 py-2.5 rounded shadow flex items-center gap-2">
+                        <span data-i18n="btnNextTekamolo">Weiter: Kapitel 3 (Satzbau)</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <div id="page-tekamolo" class="page-view hidden py-12">
+            <section id="tekamolo" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between pb-4 border-b border-gray-300">
+                    <div>
+                        <span class="text-xs font-black text-red-600 uppercase tracking-widest block" data-i18n="sec3Chapter">KAPITEL 3 • SATZBAU REGELN</span>
+                        <h2 class="text-3xl font-black text-brand-navy font-display uppercase tracking-tight" data-i18n="sec3Title">Die TeKaMoLo Satzstellung</h2>
+                    </div>
+                    <p class="text-sm text-gray-600 max-w-md mt-2 md:mt-0" data-i18n="sec3Sub">
+                        Die goldene Regel für Adverbien im Hauptsatz: <strong>Temporal → Kausal → Modal → Lokal</strong>.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200 space-y-6">
+                    <div class="text-xs font-bold text-gray-500 uppercase tracking-wider" data-i18n="sec3Instruction">Klicken Sie auf die Satzbausteine, um die korrekte Reihenfolge zu verstehen:</div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                        <div class="p-3 bg-gray-800 text-white rounded-lg border border-gray-700 text-center">
+                            <span class="text-[10px] uppercase font-bold text-gray-400 block" data-i18n="tekPos1">Position 1</span>
+                            <span class="text-xs font-extrabold text-amber-300 block my-1" data-i18n="tekQ1">SUBJEKT</span>
+                            <span class="text-xs font-mono">Ich</span>
+                        </div>
+                        <div class="p-3 bg-red-700 text-white rounded-lg border border-red-800 text-center">
+                            <span class="text-[10px] uppercase font-bold text-red-200 block" data-i18n="tekPos2">Position 2 (V2)</span>
+                            <span class="text-xs font-extrabold text-white block my-1" data-i18n="tekQ2">FINITES VERB</span>
+                            <span class="text-xs font-mono">fahre</span>
+                        </div>
+                        <div class="p-3 bg-amber-500 text-black rounded-lg border border-amber-600 text-center">
+                            <span class="text-[10px] uppercase font-bold text-amber-950 block" data-i18n="tekTe">Te (Temporal)</span>
+                            <span class="text-xs font-extrabold text-black block my-1" data-i18n="tekQ3">WANN?</span>
+                            <span class="text-xs font-mono font-semibold">heute Morgen</span>
+                        </div>
+                        <div class="p-3 bg-emerald-600 text-white rounded-lg border border-emerald-700 text-center">
+                            <span class="text-[10px] uppercase font-bold text-emerald-100 block" data-i18n="tekKa">Ka (Kausal)</span>
+                            <span class="text-xs font-extrabold text-white block my-1" data-i18n="tekQ4">WARUM?</span>
+                            <span class="text-xs font-mono">wegen des Regens</span>
+                        </div>
+                        <div class="p-3 bg-blue-600 text-white rounded-lg border border-blue-700 text-center">
+                            <span class="text-[10px] uppercase font-bold text-blue-100 block" data-i18n="tekMo">Mo (Modal)</span>
+                            <span class="text-xs font-extrabold text-white block my-1" data-i18n="tekQ5">WIE?</span>
+                            <span class="text-xs font-mono">mit dem Bus</span>
+                        </div>
+                        <div class="p-3 bg-purple-600 text-white rounded-lg border border-purple-700 text-center">
+                            <span class="text-[10px] uppercase font-bold text-purple-100 block" data-i18n="tekLo">Lo (Lokal)</span>
+                            <span class="text-xs font-extrabold text-white block my-1" data-i18n="tekQ6">WO / WOHIN?</span>
+                            <span class="text-xs font-mono">zur Arbeit</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-brand-navy p-5 rounded-lg border border-blue-900 text-white flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div>
+                            <span class="text-xs text-amber-400 font-bold uppercase tracking-wider block" data-i18n="tekResultLbl">Resultierender grammatikalischer Hauptsatz:</span>
+                            <p class="text-lg md:text-xl font-mono font-bold mt-1 text-gray-100">
+                                "Ich <span class="text-red-400">fahre</span> <span class="text-amber-300">heute Morgen</span> <span class="text-emerald-300">wegen des Regens</span> <span class="text-blue-300">mit dem Bus</span> <span class="text-purple-300">zur Arbeit</span>."
+                            </p>
+                        </div>
+                        <button onclick="speakText('Ich fahre heute Morgen wegen des Regens mit dem Bus zur Arbeit.')" class="bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase px-4 py-2.5 rounded shadow transition flex items-center gap-2 shrink-0">
+                            <i data-lucide="volume-2" class="w-4 h-4"></i>
+                            <span data-i18n="btnListenSentence">Satz Anhören</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Page Footer Pagination Controls -->
+                <div class="pt-8 border-t border-gray-200 flex items-center justify-between">
+                    <button onclick="showPage('verbs')" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold text-xs uppercase px-4 py-2 rounded flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                        <span data-i18n="btnPrevVerbs">Zurück: Kapitel 2 (Verben)</span>
+                    </button>
+                    <button onclick="showPage('quiz')" class="bg-brand-navy hover:bg-blue-900 text-white font-bold text-xs uppercase px-5 py-2.5 rounded shadow flex items-center gap-2">
+                        <span data-i18n="btnNextQuiz">Weiter: Kapitel 4 (Übungen)</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <div id="page-quiz" class="page-view hidden py-12">
+            <section id="quiz-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between pb-4 border-b border-gray-300">
+                    <div>
+                        <span class="text-xs font-black text-red-600 uppercase tracking-widest block" data-i18n="sec4Chapter">KAPITEL 4 • PRAXIS-TRAINING</span>
+                        <h2 class="text-3xl font-black text-brand-navy font-display uppercase tracking-tight" data-i18n="sec4Title">Grammatik Test & Übungen</h2>
+                    </div>
+                    <div class="flex items-center gap-4 mt-2 md:mt-0">
+                        <span class="text-xs font-bold text-gray-500 uppercase"><span data-i18n="lblScore">Punkte:</span> <strong id="scoreCounter" class="text-brand-navy text-sm font-mono">0 / 0</strong></span>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 border border-gray-200 shadow-md max-w-3xl mx-auto space-y-6">
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-xs font-bold text-gray-600 uppercase">
+                            <span id="quizQuestionNum">Frage 1 von 3</span>
+                            <span id="quizTopicBadge" class="text-red-600">Grammatik</span>
+                        </div>
+                        <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                            <div id="quizProgressBar" class="bg-brand-navy h-full transition-all duration-300" style="width: 33%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy" id="quizQuestionText">
+                            <!-- Dynamic -->
+                        </h3>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="quizOptionsContainer"></div>
+                    </div>
+
+                    <div id="quizFeedbackBox" class="hidden p-4 rounded-lg border text-sm font-semibold space-y-1">
+                        <div id="quizFeedbackTitle" class="font-extrabold uppercase text-xs"></div>
+                        <p id="quizFeedbackText" class="text-xs text-gray-700"></p>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button id="nextQuizBtn" onclick="nextQuestion()" class="hidden bg-brand-navy hover:bg-blue-900 text-white font-bold text-xs uppercase px-6 py-2.5 rounded shadow transition flex items-center gap-2">
+                            <span data-i18n="btnNextQuestion">Nächste Frage</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Page Footer Pagination Controls -->
+                <div class="pt-8 border-t border-gray-200 flex items-center justify-between">
+                    <button onclick="showPage('tekamolo')" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold text-xs uppercase px-4 py-2 rounded flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                        <span data-i18n="btnPrevTekamolo">Zurück: Kapitel 3 (Satzbau)</span>
+                    </button>
+                    <button onclick="showPage('vocab')" class="bg-brand-navy hover:bg-blue-900 text-white font-bold text-xs uppercase px-5 py-2.5 rounded shadow flex items-center gap-2">
+                        <span data-i18n="btnNextVocab">Weiter: Kapitel 5 (Wortschatz)</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <div id="page-vocab" class="page-view hidden py-12">
+            <section id="audio-vocab" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between pb-4 border-b border-gray-300">
+                    <div>
+                        <span class="text-xs font-black text-red-600 uppercase tracking-widest block" data-i18n="sec5Chapter">KAPITEL 5 • AUSSPRACHE & WORTSCHATZ</span>
+                        <h2 class="text-3xl font-black text-brand-navy font-display uppercase tracking-tight" data-i18n="sec5Title">Audio Wortschatz-Bibliothek</h2>
+                    </div>
+                    <p class="text-sm text-gray-600 max-w-md mt-2 md:mt-0" data-i18n="sec5Sub">
+                        Hören Sie sich muttersprachlich generierte deutsche Redewendungen und Grammatikbeispiele mit anpassbarem Tempo an.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="vocabGrid"></div>
+
+                <!-- Page Footer Pagination Controls -->
+                <div class="pt-8 border-t border-gray-200 flex items-center justify-between">
+                    <button onclick="showPage('quiz')" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold text-xs uppercase px-4 py-2 rounded flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                        <span data-i18n="btnPrevQuiz">Zurück: Kapitel 4 (Übungen)</span>
+                    </button>
+                    <button onclick="showPage('home')" class="bg-brand-navy hover:bg-blue-900 text-white font-bold text-xs uppercase px-5 py-2.5 rounded shadow flex items-center gap-2">
+                        <i data-lucide="home" class="w-4 h-4"></i>
+                        <span data-i18n="btnBackToHome">Zur Hauptübersicht</span>
+                    </button>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer class="bg-brand-deepNavy text-gray-300 py-12 border-t border-blue-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-7 h-7 rounded bg-white p-0.5 flex flex-col justify-between overflow-hidden shadow">
+                        <div class="h-1/3 bg-black"></div>
+                        <div class="h-1/3 bg-red-600"></div>
+                        <div class="h-1/3 bg-amber-400"></div>
+                    </div>
+                    <span class="text-xl font-black text-white font-display uppercase tracking-tight">HAMMER'S GERMAN GRAMMAR ONLINE</span>
+                </div>
+                <p class="text-xs text-gray-400 text-center md:text-right max-w-md leading-relaxed" data-i18n="footerDesc">
+                    Inspiriert vom anerkannten Standardwerk für deutsche Grammatik von Martin Durrell (Routledge Edition Style).
+                </p>
+            </div>
+            <div class="pt-6 border-t border-blue-900/60 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 gap-4">
+                <span data-i18n="footerRights">&copy; 2026 Deutsche Grammatik Reference Platform. Alle Rechte vorbehalten.</span>
+                <div class="flex items-center space-x-4 font-semibold">
+                    <button onclick="showPage('cases')" class="hover:text-amber-400" data-i18n="navCases">Kasus</button>
+                    <button onclick="showPage('verbs')" class="hover:text-amber-400" data-i18n="navVerbs">Verben</button>
+                    <button onclick="showPage('tekamolo')" class="hover:text-amber-400" data-i18n="navTekamolo">Satzbau</button>
+                    <button onclick="showPage('quiz')" class="hover:text-amber-400" data-i18n="navQuiz">Übungen</button>
+                    <button onclick="showPage('vocab')" class="hover:text-amber-400" data-i18n="navAudio">Wortschatz</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // PAGE ROUTER SYSTEM
+        const pages = ['home', 'cases', 'verbs', 'tekamolo', 'quiz', 'vocab'];
+        
+        const pageTitlesMap = {
+            de: {
+                home: "0. Hauptübersicht",
+                cases: "Kapitel 1 • Kasus & Artikel",
+                verbs: "Kapitel 2 • Verb-Konjugator",
+                tekamolo: "Kapitel 3 • Satzbau (TeKaMoLo)",
+                quiz: "Kapitel 4 • Übungen & Quiz",
+                vocab: "Kapitel 5 • Aussprache & Wortschatz"
+            },
+            en: {
+                home: "0. Main Overview",
+                cases: "Chapter 1 • Cases & Articles",
+                verbs: "Chapter 2 • Verb Conjugator",
+                tekamolo: "Chapter 3 • Word Order (TeKaMoLo)",
+                quiz: "Chapter 4 • Exercises & Quiz",
+                vocab: "Chapter 5 • Pronunciation & Vocabulary"
+            },
+            ru: {
+                home: "0. Главный обзор",
+                cases: "Глава 1 • Падежи и артикли",
+                verbs: "Глава 2 • Спряжение глаголов",
+                tekamolo: "Глава 3 • Порядок слов (TeKaMoLo)",
+                quiz: "Глава 4 • Упражнения и тест",
+                vocab: "Глава 5 • Произношение и словарь"
+            }
+        };
+
+        let currentPageId = 'home';
+
+        function showPage(pageId) {
+            if (!pages.includes(pageId)) pageId = 'home';
+            currentPageId = pageId;
+
+            // Hide all pages, show selected page
+            document.querySelectorAll('.page-view').forEach(el => el.classList.add('hidden'));
+            const activePage = document.getElementById(`page-${pageId}`);
+            if (activePage) {
+                activePage.classList.remove('hidden');
+            }
+
+            // Update Header Navigation Active State
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-amber-300', 'bg-blue-900/80');
+                btn.classList.add('text-gray-200');
+            });
+
+            const activeNavBtn = document.getElementById(`nav-${pageId}`);
+            if (activeNavBtn) {
+                activeNavBtn.classList.remove('text-gray-200');
+                activeNavBtn.classList.add('text-amber-300', 'bg-blue-900/80');
+            }
+
+            // Update Breadcrumb & Sub-Header Pagination Bar
+            updateBreadcrumb();
+
+            // Update Browser URL Hash without reloading
+            window.location.hash = pageId;
+
+            // Scroll smoothly to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateBreadcrumb() {
+            const currentIndex = pages.indexOf(currentPageId);
+            const titles = pageTitlesMap[currentLang] || pageTitlesMap.de;
+            document.getElementById('currentPageTitle').innerText = titles[currentPageId] || currentPageId;
+            document.getElementById('pageNumberBadge').innerText = `${currentIndex + 1} / ${pages.length}`;
+
+            // Handle Previous / Next buttons state
+            document.getElementById('prevPageBtn').disabled = (currentIndex === 0);
+            document.getElementById('nextPageBtn').disabled = (currentIndex === pages.length - 1);
+        }
+
+        function nextPage() {
+            const currentIndex = pages.indexOf(currentPageId);
+            if (currentIndex < pages.length - 1) {
+                showPage(pages[currentIndex + 1]);
+            }
+        }
+
+        function prevPage() {
+            const currentIndex = pages.indexOf(currentPageId);
+            if (currentIndex > 0) {
+                showPage(pages[currentIndex - 1]);
+            }
+        }
+
+        // Current UI language state
+        let currentLang = 'de'; // 'de', 'en', 'ru'
+
+        const translations = {
+            de: {
+                routledgeStyle: "Routledge Reference Style",
+                navHome: "ÜBERSICHT",
+                navCases: "KASUS & ARTIKEL",
+                navVerbs: "VERB-KONJUGATOR",
+                navTekamolo: "SATZBAU (TeKaMoLo)",
+                navQuiz: "ÜBUNGEN (QUIZ)",
+                navAudio: "AUSSPRACHE & VOCAB",
+                lblPage: "SEITE:",
+                btnPrevPage: "Vorherige Seite",
+                btnNextPage: "Nächste Seite",
+
+                heroBadge: "Referenzhandbuch & Interaktiver Trainer",
+                heroEdition: "7. AUFLAGE • EDITIONS-STIL",
+                heroAuthor: "Prof. Martin Durrell Referenz-Leitfaden",
+                heroDesc: "Meistern Sie die deutsche Grammatik präzise und fundiert. Wählen Sie eine Kapitel-Seite aus, um interaktiv zu trainieren.",
+                feat1: "Interaktiver Artikel-Generator",
+                feat2: "Muttersprachliche Audio-Engine",
+                heroDedicatedPages: "5 DEDIZIERTE KAPITEL-SEITEN",
+                chapOverviewTitle: "KAPITEL-ÜBERSICHT (SEITEN-NAVIGATOR)",
+                chapOverviewSub: "Wählen Sie ein Kapitel, um die dedizierte Lernseite zu öffnen",
+
+                card1Title: "Kasus & Artikel-Deklination",
+                card1Desc: "Interaktiver Rechner für Nominativ, Akkusativ, Dativ & Genitiv. Adjektiv-Endungen und Wechselpräpositionen.",
+                card1Open: "Kapitel 1 öffnen",
+
+                card2Title: "Verb-Konjugator & Zeiten",
+                card2Desc: "Vollständige Tabellen für Präsens, Präteritum, Perfekt und Konjunktiv II mit Schnellsuche.",
+                card2Open: "Kapitel 2 öffnen",
+
+                card3Title: "Satzbau (TeKaMoLo)",
+                card3Desc: "Visuelle Satzbau-Reihenfolge: Temporal → Kausal → Modal → Lokal mit Live-Satzgenerierung.",
+                card3Open: "Kapitel 3 öffnen",
+
+                card4Title: "Grammatik Test & Quiz",
+                card4Desc: "Praxis-Übungen mit Auswertung und Erklärungen zu allen Grammatikthemen.",
+                card4Open: "Kapitel 4 öffnen",
+
+                card5Title: "Aussprache & Wortschatz",
+                card5Desc: "Audio-Bibliothek nach Niveaustufen A1 bis C1 mit anpassbarem Sprechtempo.",
+                card5Open: "Kapitel 5 öffnen",
+
+                sec1Chapter: "KAPITEL 1 • DIE KASUS",
+                sec1Title: "Interaktiver Kasus & Deklinations-Rechner",
+                sec1Sub: "Wählen Sie Genus, Numerus und Kasus, um die korrekten bestimmten/unbestimmten Artikel und Adjektiv-Endungen sofort zu berechnen.",
+                lblGender: "1. Genus (Grammatisch):",
+                lblCase: "2. Kasus (Fall):",
+                lblAdjNoun: "3. Beispiel Adjektiv & Nomen:",
+                phAdj: "Adjektiv",
+                phNoun: "Nomen",
+                genderM: "Maskulin",
+                genderF: "Feminin",
+                genderN: "Neutral",
+                genderP: "Plural",
+                caseNomLabel: "Subjekt (Wer / Was?)",
+                caseAkkLabel: "Direktes Objekt (Wen / Was?)",
+                caseDatLabel: "Indirektes Objekt (Wem?)",
+                caseGenLabel: "Besitz / Zuweisung (Wessen?)",
+                lblDefArticle: "Bestimmter Artikel (Definite Article):",
+                lblIndefArticle: "Unbestimmter Artikel (Indefinite Article):",
+                rulePrepTitle: "Wechselpräpositionen Merkregel (Akkusativ vs. Dativ)",
+                rulePrepAkk: "Akkusativ = Wohin? (Bewegung / Ziel)",
+                rulePrepDat: "Dativ = Wo? (Ort / Zustand)",
+                btnToHome: "Zur Übersicht",
+                btnNextVerbs: "Weiter: Kapitel 2 (Verben)",
+
+                sec2Chapter: "KAPITEL 2 • VERB-KONJUGATION",
+                sec2Title: "Deutscher Verb-Konjugator",
+                sec2Sub: "Suchen Sie nach wichtigen Verben und betrachten Sie die Formen für Präsens, Präteritum, Perfekt und Konjunktiv II.",
+                phVerbSearch: "Verb suchen (z.B. sein, haben, werden, gehen)...",
+                lblAuxiliary: "Hilfsverb:",
+                lblPartizip: "Partizip II:",
+                tensePraesens: "Präsens (Present)",
+                tensePraeteritum: "Präteritum (Simple Past)",
+                tensePerfekt: "Perfekt (Perfect)",
+                tenseKonjunktiv: "Konjunktiv II (Subjunctive)",
+                btnPrevCases: "Zurück: Kapitel 1 (Kasus)",
+                btnNextTekamolo: "Weiter: Kapitel 3 (Satzbau)",
+
+                sec3Chapter: "KAPITEL 3 • SATZBAU REGELN",
+                sec3Title: "Die TeKaMoLo Satzstellung",
+                sec3Sub: "Die goldene Regel für Adverbien im Hauptsatz: Temporal → Kausal → Modal → Lokal.",
+                sec3Instruction: "Klicken Sie auf die Satzbausteine, um die korrekte Reihenfolge zu verstehen:",
+                tekPos1: "Position 1",
+                tekPos2: "Position 2 (V2)",
+                tekTe: "Te (Temporal)",
+                tekKa: "Ka (Kausal)",
+                tekMo: "Mo (Modal)",
+                tekLo: "Lo (Lokal)",
+                tekQ1: "SUBJEKT",
+                tekQ2: "FINITES VERB",
+                tekQ3: "WANN?",
+                tekQ4: "WARUM?",
+                tekQ5: "WIE?",
+                tekQ6: "WO / WOHIN?",
+                tekResultLbl: "Resultierender grammatikalischer Hauptsatz:",
+                btnListenSentence: "Satz Anhören",
+                btnPrevVerbs: "Zurück: Kapitel 2 (Verben)",
+                btnNextQuiz: "Weiter: Kapitel 4 (Übungen)",
+
+                sec4Chapter: "KAPITEL 4 • PRAXIS-TRAINING",
+                sec4Title: "Grammatik Test & Übungen",
+                lblScore: "Punkte:",
+                btnNextQuestion: "Nächste Frage",
+                btnPrevTekamolo: "Zurück: Kapitel 3 (Satzbau)",
+                btnNextVocab: "Weiter: Kapitel 5 (Wortschatz)",
+
+                sec5Chapter: "KAPITEL 5 • AUSSPRACHE & WORTSCHATZ",
+                sec5Title: "Audio Wortschatz-Bibliothek",
+                sec5Sub: "Hören Sie sich muttersprachlich generierte deutsche Redewendungen und Grammatikbeispiele mit anpassbarem Tempo an.",
+                btnPrevQuiz: "Zurück: Kapitel 4 (Übungen)",
+                btnBackToHome: "Zur Hauptübersicht",
+
+                footerDesc: "Inspiriert vom anerkannten Standardwerk für deutsche Grammatik von Martin Durrell (Routledge Edition Style).",
+                footerRights: "© 2026 Deutsche Grammatik Reference Platform. Alle Rechte vorbehalten."
+            },
+            en: {
+                routledgeStyle: "Routledge Reference Style",
+                navHome: "OVERVIEW",
+                navCases: "CASES & ARTICLES",
+                navVerbs: "VERB CONJUGATOR",
+                navTekamolo: "WORD ORDER (TeKaMoLo)",
+                navQuiz: "EXERCISES (QUIZ)",
+                navAudio: "PRONUNCIATION & VOCAB",
+                lblPage: "PAGE:",
+                btnPrevPage: "Previous Page",
+                btnNextPage: "Next Page",
+
+                heroBadge: "Reference Handbook & Interactive Trainer",
+                heroEdition: "7TH EDITION • REFERENCE STYLE",
+                heroAuthor: "Prof. Martin Durrell Reference Guide",
+                heroDesc: "Master German grammar with precision and depth. Select a chapter page below to practice interactively.",
+                feat1: "Interactive Article Calculator",
+                feat2: "Native Voice Speech Engine",
+                heroDedicatedPages: "5 DEDICATED CHAPTER PAGES",
+                chapOverviewTitle: "CHAPTER OVERVIEW (PAGE NAVIGATOR)",
+                chapOverviewSub: "Select a chapter to open its dedicated learning page",
+
+                card1Title: "Cases & Article Declension",
+                card1Desc: "Interactive calculator for Nominative, Accusative, Dative & Genitive. Adjective endings and prepositions.",
+                card1Open: "Open Chapter 1",
+
+                card2Title: "Verb Conjugator & Tenses",
+                card2Desc: "Complete tables for Present, Past, Perfect, and Subjunctive II with fast search.",
+                card2Open: "Open Chapter 2",
+
+                card3Title: "Word Order (TeKaMoLo)",
+                card3Desc: "Visual word order sequence: Temporal → Causal → Modal → Local with live sentence building.",
+                card3Open: "Open Chapter 3",
+
+                card4Title: "Grammar Test & Quiz",
+                card4Desc: "Practice exercises with scoring and detailed explanations for all grammar topics.",
+                card4Open: "Open Chapter 4",
+
+                card5Title: "Pronunciation & Vocabulary",
+                card5Desc: "Audio library categorized from level A1 to C1 with adjustable speech speed.",
+                card5Open: "Open Chapter 5",
+
+                sec1Chapter: "CHAPTER 1 • THE CASES",
+                sec1Title: "Interactive Case & Declension Calculator",
+                sec1Sub: "Select gender, number, and case to calculate correct definite/indefinite articles and adjective endings instantly.",
+                lblGender: "1. Grammatical Gender:",
+                lblCase: "2. Grammatical Case:",
+                lblAdjNoun: "3. Example Adjective & Noun:",
+                phAdj: "Adjective",
+                phNoun: "Noun",
+                genderM: "Masculine",
+                genderF: "Feminine",
+                genderN: "Neuter",
+                genderP: "Plural",
+                caseNomLabel: "Subject (Who / What?)",
+                caseAkkLabel: "Direct Object (Whom / What?)",
+                caseDatLabel: "Indirect Object (To whom?)",
+                caseGenLabel: "Possession (Whose?)",
+                lblDefArticle: "Definite Article:",
+                lblIndefArticle: "Indefinite Article:",
+                rulePrepTitle: "Two-Way Prepositions Rule (Accusative vs. Dative)",
+                rulePrepAkk: "Accusative = Where to? (Movement / Goal)",
+                rulePrepDat: "Dative = Where? (Location / State)",
+                btnToHome: "To Overview",
+                btnNextVerbs: "Next: Chapter 2 (Verbs)",
+
+                sec2Chapter: "CHAPTER 2 • VERB CONJUGATION",
+                sec2Title: "German Verb Conjugator",
+                sec2Sub: "Search for key verbs and view conjugation forms for Present, Past, Perfect, and Subjunctive II.",
+                phVerbSearch: "Search verb (e.g. sein, haben, werden, gehen)...",
+                lblAuxiliary: "Auxiliary:",
+                lblPartizip: "Participle II:",
+                tensePraesens: "Present Tense",
+                tensePraeteritum: "Simple Past",
+                tensePerfekt: "Perfect Tense",
+                tenseKonjunktiv: "Subjunctive II",
+                btnPrevCases: "Back: Chapter 1 (Cases)",
+                btnNextTekamolo: "Next: Chapter 3 (Word Order)",
+
+                sec3Chapter: "CHAPTER 3 • WORD ORDER RULES",
+                sec3Title: "The TeKaMoLo Word Order",
+                sec3Sub: "The golden rule for adverbials in main clauses: Temporal → Causal → Modal → Local.",
+                sec3Instruction: "Click on the sentence blocks below to understand the proper sequence:",
+                tekPos1: "Position 1",
+                tekPos2: "Position 2 (V2)",
+                tekTe: "Te (Temporal)",
+                tekKa: "Ka (Causal)",
+                tekMo: "Mo (Modal)",
+                tekLo: "Lo (Local)",
+                tekQ1: "SUBJECT",
+                tekQ2: "FINITE VERB",
+                tekQ3: "WHEN?",
+                tekQ4: "WHY?",
+                tekQ5: "HOW?",
+                tekQ6: "WHERE / WHERE TO?",
+                tekResultLbl: "Resulting grammatical main clause:",
+                btnListenSentence: "Listen Sentence",
+                btnPrevVerbs: "Back: Chapter 2 (Verbs)",
+                btnNextQuiz: "Next: Chapter 4 (Exercises)",
+
+                sec4Chapter: "CHAPTER 4 • PRACTICE TRAINING",
+                sec4Title: "Grammar Test & Exercises",
+                lblScore: "Score:",
+                btnNextQuestion: "Next Question",
+                btnPrevTekamolo: "Back: Chapter 3 (Word Order)",
+                btnNextVocab: "Next: Chapter 5 (Vocabulary)",
+
+                sec5Chapter: "CHAPTER 5 • PRONUNCIATION & VOCABULARY",
+                sec5Title: "Audio Vocabulary Library",
+                sec5Sub: "Listen to native spoken German phrases and grammar examples with adjustable speed.",
+                btnPrevQuiz: "Back: Chapter 4 (Exercises)",
+                btnBackToHome: "To Main Overview",
+
+                footerDesc: "Inspired by Martin Durrell's authoritative reference guide for German grammar (Routledge Edition Style).",
+                footerRights: "© 2026 German Grammar Reference Platform. All rights reserved."
+            },
+            ru: {
+                routledgeStyle: "Стиль справочника Routledge",
+                navHome: "ОБЗОР",
+                navCases: "ПАДЕЖИ И АРТИКЛИ",
+                navVerbs: "СПРЯЖЕНИЕ ГЛАГОЛОВ",
+                navTekamolo: "ПОРЯДОК СЛОВ (TeKaMoLo)",
+                navQuiz: "УПРАЖНЕНИЯ (ТЕСТ)",
+                navAudio: "ПРОИЗНОШЕНИЕ И СЛОВАРЬ",
+                lblPage: "СТРАНИЦА:",
+                btnPrevPage: "Предыдущая страница",
+                btnNextPage: "Следующая страница",
+
+                heroBadge: "Справочник и интерактивный тренажер",
+                heroEdition: "7-Е ИЗДАНИЕ • АКАДЕМИЧЕСКИЙ СТИЛЬ",
+                heroAuthor: "Руководство проф. Мартина Дюррелла",
+                heroDesc: "Освойте немецкую грамматику точно и углубленно. Выберите главу ниже для интерактивных занятий.",
+                feat1: "Интерактивный калькулятор артиклей",
+                feat2: "Озвучивание произношения",
+                heroDedicatedPages: "5 СПЕЦИАЛЬНЫХ РАЗДЕЛОВ",
+                chapOverviewTitle: "ОБЗОР ГЛАВ (НАВИГАЦИЯ)",
+                chapOverviewSub: "Выберите главу для перехода на соответствующую страницу",
+
+                card1Title: "Падежи и склонение артиклей",
+                card1Desc: "Интерактивный калькулятор падежей (Nominativ, Akkusativ, Dativ, Genitiv), окончания прилагательных и предлоги.",
+                card1Open: "Открыть главу 1",
+
+                card2Title: "Спряжение глаголов и времена",
+                card2Desc: "Полные таблицы форм для Präsens, Präteritum, Perfekt и Konjunktiv II с быстрым поиском.",
+                card2Open: "Открыть главу 2",
+
+                card3Title: "Порядок слов (TeKaMoLo)",
+                card3Desc: "Наглядная последовательность: Время → Причина → Способ → Место с генератором предложений.",
+                card3Open: "Открыть главу 3",
+
+                card4Title: "Тест и упражнения по грамматике",
+                card4Desc: "Практические упражнения с проверкой и подробными пояснениями ко всем темам.",
+                card4Open: "Открыть главу 4",
+
+                card5Title: "Произношение и словарный запас",
+                card5Desc: "Аудио-библиотека по уровням от A1 до C1 с настройкой скорости речи.",
+                card5Open: "Открыть главу 5",
+
+                sec1Chapter: "ГЛАВА 1 • ПАДЕЖИ",
+                sec1Title: "Интерактивный калькулятор падежей и склонений",
+                sec1Sub: "Выберите род, число и падеж, чтобы мгновенно рассчитать правильные артикли и окончания прилагательных.",
+                lblGender: "1. Род (грамматический):",
+                lblCase: "2. Падеж:",
+                lblAdjNoun: "3. Пример прилагательного и существительного:",
+                phAdj: "Прилагательное",
+                phNoun: "Существительное",
+                genderM: "Мужской род",
+                genderF: "Женский род",
+                genderN: "Средний род",
+                genderP: "Множ. число",
+                caseNomLabel: "Субъект (Кто? Что?)",
+                caseAkkLabel: "Прямой объект (Кого? Что?)",
+                caseDatLabel: "Косвенный объект (Кому? Чему?)",
+                caseGenLabel: "Принадлежность (Чей? Чья?)",
+                lblDefArticle: "Определенный артикль:",
+                lblIndefArticle: "Неопределенный артикль:",
+                rulePrepTitle: "Правило предлогов двойного управления (Akkusativ vs. Dativ)",
+                rulePrepAkk: "Akkusativ = Куда? (Движение / Направление)",
+                rulePrepDat: "Dativ = Где? (Местоположение / Состояние)",
+                btnToHome: "К обзору",
+                btnNextVerbs: "Далее: Глава 2 (Глаголы)",
+
+                sec2Chapter: "ГЛАВА 2 • СПРЯЖЕНИЕ ГЛАГОЛОВ",
+                sec2Title: "Спряжение немецких глаголов",
+                sec2Sub: "Ищите основные глаголы и смотрите формы для Präsens, Präteritum, Perfekt и Konjunktiv II.",
+                phVerbSearch: "Поиск глагола (напр. sein, haben, werden, gehen)...",
+                lblAuxiliary: "Вспом. глагол:",
+                lblPartizip: "Причастие II:",
+                tensePraesens: "Настоящее время (Präsens)",
+                tensePraeteritum: "Прошедшее время (Präteritum)",
+                tensePerfekt: "Прошедшее время (Perfekt)",
+                tenseKonjunktiv: "Сослагательное (Konjunktiv II)",
+                btnPrevCases: "Назад: Глава 1 (Падежи)",
+                btnNextTekamolo: "Далее: Глава 3 (Порядок слов)",
+
+                sec3Chapter: "ГЛАВА 3 • ПРАВИЛА ПОРЯДКА СЛОВ",
+                sec3Title: "Порядок слов TeKaMoLo",
+                sec3Sub: "Золотое правило для обстоятельств в главном предложении: Время → Причина → Способ → Место.",
+                sec3Instruction: "Нажмите на элементы предложения, чтобы понять правильный порядок:",
+                tekPos1: "Позиция 1",
+                tekPos2: "Position 2 (V2)",
+                tekTe: "Te (Время)",
+                tekKa: "Ka (Причина)",
+                tekMo: "Mo (Способ)",
+                tekLo: "Lo (Место)",
+                tekQ1: "СУБЪЕКТ",
+                tekQ2: "СПРЯГАЕМЫЙ ГЛАГОЛ",
+                tekQ3: "КОГДА?",
+                tekQ4: "ПОЧЕМУ?",
+                tekQ5: "КАК?",
+                tekQ6: "ГДЕ / КУДА?",
+                tekResultLbl: "Итоговое грамматическое предложение:",
+                btnListenSentence: "Слушать предложение",
+                btnPrevVerbs: "Назад: Глава 2 (Глаголы)",
+                btnNextQuiz: "Далее: Глава 4 (Упражнения)",
+
+                sec4Chapter: "ГЛАВА 4 • ПРАКТИЧЕСКИЙ ТРЕНИНГ",
+                sec4Title: "Тест и упражнения по грамматике",
+                lblScore: "Баллы:",
+                btnNextQuestion: "Следующий вопрос",
+                btnPrevTekamolo: "Назад: Глава 3 (Порядок слов)",
+                btnNextVocab: "Далее: Глава 5 (Словарь)",
+
+                sec5Chapter: "ГЛАВА 5 • ПРОИЗНОШЕНИЕ И СЛОВАРЬ",
+                sec5Title: "Аудио-библиотека словаря",
+                sec5Sub: "Слушайте немецкие фразы и грамматические примеры с возможностью настройки скорости.",
+                btnPrevQuiz: "Назад: Глава 4 (Упражнения)",
+                btnBackToHome: "На главную",
+
+                footerDesc: "Создано по мотивам авторитетного руководства по немецкой грамматике Мартина Дюррелла (Routledge Edition Style).",
+                footerRights: "© 2026 Deutsche Grammatik Reference Platform. Все права защищены."
+            }
+        };
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+
+            // Translate all elements with data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
+            });
+
+            // Translate placeholders
+            document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+                const key = el.getAttribute('data-i18n-ph');
+                if (translations[lang] && translations[lang][key]) {
+                    el.setAttribute('placeholder', translations[lang][key]);
+                }
+            });
+
+            // Re-render active view elements with translated texts
+            updateBreadcrumb();
+            updateCaseDisplay();
+            renderQuizQuestion();
+            renderVocabularyGrid();
+        }
+
+        // Global Speech Synthesis Settings
+        let speechSpeed = 1.0;
+
+        function toggleAudioSpeed() {
+            if (speechSpeed === 1.0) speechSpeed = 0.75;
+            else if (speechSpeed === 0.75) speechSpeed = 0.5;
+            else speechSpeed = 1.0;
+
+            const btn = document.getElementById('speedBtn');
+            btn.querySelector('span').innerText = `${speechSpeed.toFixed(2)}x Tempo`;
+        }
+
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // cancel playing audio
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'de-DE';
+                utterance.rate = speechSpeed;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        let caseState = {
+            gender: 'm', // m, f, n, p
+            case: 'nom'  // nom, akk, dat, gen
+        };
+
+        const declensionMatrix = {
+            m: {
+                nom: { def: 'der', indef: 'ein', adjDef: 'e', adjIndef: 'er', nounSuffix: '' },
+                akk: { def: 'den', indef: 'einen', adjDef: 'en', adjIndef: 'en', nounSuffix: '' },
+                dat: { def: 'dem', indef: 'einem', adjDef: 'en', adjIndef: 'en', nounSuffix: 'm' },
+                gen: { def: 'des', indef: 'eines', adjDef: 'en', adjIndef: 'en', nounSuffix: 's' }
+            },
+            f: {
+                nom: { def: 'die', indef: 'eine', adjDef: 'e', adjIndef: 'e', nounSuffix: '' },
+                akk: { def: 'die', indef: 'eine', adjDef: 'e', adjIndef: 'e', nounSuffix: '' },
+                dat: { def: 'der', indef: 'einer', adjDef: 'en', adjIndef: 'en', nounSuffix: '' },
+                gen: { def: 'der', indef: 'einer', adjDef: 'en', adjIndef: 'en', nounSuffix: '' }
+            },
+            n: {
+                nom: { def: 'das', indef: 'ein', adjDef: 'e', adjIndef: 'es', nounSuffix: '' },
+                akk: { def: 'das', indef: 'ein', adjDef: 'e', adjIndef: 'es', nounSuffix: '' },
+                dat: { def: 'dem', indef: 'einem', adjDef: 'en', adjIndef: 'en', nounSuffix: 'm' },
+                gen: { def: 'des', indef: 'eines', adjDef: 'en', adjIndef: 'en', nounSuffix: 's' }
+            },
+            p: {
+                nom: { def: 'die', indef: 'keine', adjDef: 'en', adjIndef: 'en', nounSuffix: '' },
+                akk: { def: 'die', indef: 'keine', adjDef: 'en', adjIndef: 'en', nounSuffix: '' },
+                dat: { def: 'den', indef: 'keinen', adjDef: 'en', adjIndef: 'en', nounSuffix: 'n' },
+                gen: { def: 'der', indef: 'keiner', adjDef: 'en', adjIndef: 'en', nounSuffix: '' }
+            }
+        };
+
+        const caseExplMap = {
+            de: {
+                nom: "Nominativ ist der 1. Fall (Subjekt). Der bestimmte Artikel ist unverändert.",
+                akk: "Akkusativ bezeichnet das direkte Objekt. Nur Maskulinum verändert sich (der -> den).",
+                dat: "Dativ bezeichnet das indirekte Objekt. Dativ verlangt oft '-en' Endungen und Nomen-Erweiterungen.",
+                gen: "Genitiv drückt Besitz aus. Maskulinum/Neutrum erhalten die Genitivendung '-es' oder '-s'."
+            },
+            en: {
+                nom: "Nominative is the subject case. Definite articles take their standard nominative form.",
+                akk: "Accusative marks the direct object. Only masculine changes (der -> den).",
+                dat: "Dative marks the indirect object. Dative adjectives take '-en' and plural nouns take '-n'.",
+                gen: "Genitive shows possession. Masculine and neuter nouns receive a genitive '-es' or '-s' suffix."
+            },
+            ru: {
+                nom: "Именительный падеж (кто/что). Исходная форма подлежащего.",
+                akk: "Винительный падеж (кого/что). Изменяется только мужской род (der -> den).",
+                dat: "Дательный падеж (кому/чему). Прилагательные получают окончание '-en'.",
+                gen: "Родительный падеж (чей/кого). Мужской и средний род получают окончание '-es' или '-s'."
+            }
+        };
+
+        function setCaseConfig(type, val) {
+            caseState[type] = val;
+
+            if (type === 'gender') {
+                document.querySelectorAll('.gender-btn').forEach(b => {
+                    b.classList.remove('active', 'bg-brand-navy', 'text-white');
+                    b.classList.add('bg-gray-100', 'text-gray-800');
+                });
+                const activeBtn = document.getElementById(`btn-g-${val}`);
+                if (activeBtn) {
+                    activeBtn.classList.add('active', 'bg-brand-navy', 'text-white');
+                    activeBtn.classList.remove('bg-gray-100', 'text-gray-800');
+                }
+            } else if (type === 'case') {
+                document.querySelectorAll('.case-btn').forEach(b => {
+                    b.classList.remove('active', 'bg-brand-navy', 'text-white');
+                    b.classList.add('bg-gray-100', 'text-gray-800');
+                });
+                const activeBtn = document.getElementById(`btn-c-${val}`);
+                if (activeBtn) {
+                    activeBtn.classList.add('active', 'bg-brand-navy', 'text-white');
+                    activeBtn.classList.remove('bg-gray-100', 'text-gray-800');
+                }
+            }
+
+            updateCaseDisplay();
+        }
+
+        function updateCaseDisplay() {
+            const g = caseState.gender;
+            const c = caseState.case;
+            const data = declensionMatrix[g][c];
+
+            const adjRaw = document.getElementById('adjInput').value.trim() || 'gut';
+            const nounRaw = document.getElementById('nounInput').value.trim() || 'Mann';
+
+            // Clean adjective root
+            let adjRoot = adjRaw;
+            if (adjRoot.endsWith('e')) adjRoot = adjRoot.slice(0, -1);
+
+            // Noun ending check for Genitive / Dative
+            let nounFinal = nounRaw;
+            if (c === 'gen' && (g === 'm' || g === 'n') && !nounFinal.endsWith('s')) {
+                nounFinal += (nounFinal.length <= 4) ? 'es' : 's';
+            } else if (c === 'dat' && g === 'p' && !nounFinal.endsWith('n') && !nounFinal.endsWith('s')) {
+                nounFinal += 'n';
+            }
+
+            // Update UI elements
+            const genderLabels = { m: 'MASKULIN', f: 'FEMININ', n: 'NEUTRAL', p: 'PLURAL' };
+            const caseLabels = { nom: 'NOMINATIV', akk: 'AKKUSATIV', dat: 'DATIV', gen: 'GENITIV' };
+            
+            document.getElementById('resultHeaderKasus').innerText = `${caseLabels[c]} • ${genderLabels[g]}`;
+            
+            document.getElementById('computedDefinite').innerHTML = 
+                `${data.def} <span class="text-amber-400 underline decoration-red-500 decoration-2">${adjRoot}${data.adjDef}</span> ${nounFinal}`;
+            
+            document.getElementById('computedIndefinite').innerHTML = 
+                `${data.indef} <span class="text-amber-400 underline decoration-red-500 decoration-2">${adjRoot}${data.adjIndef}</span> ${nounFinal}`;
+
+            const expls = caseExplMap[currentLang] || caseExplMap.de;
+            document.getElementById('explanationText').innerText = expls[c];
+        }
+
+        function speakCurrentPhrase() {
+            const defText = document.getElementById('computedDefinite').innerText;
+            speakText(defText);
+        }
+
+        const verbsDatabase = {
+            sein: {
+                type: 'Unregelmäßiges Verb (Stark)',
+                translation: '(to be)',
+                aux: 'sein',
+                partizip: 'gewesen',
+                praesens: ['ich bin', 'du bist', 'er/sie/es ist', 'wir sind', 'ihr seid', 'sie/Sie sind'],
+                praeteritum: ['ich war', 'du warst', 'er/sie/es war', 'wir waren', 'ihr wart', 'sie/Sie waren'],
+                perfekt: ['ich bin gewesen', 'du bist gewesen', 'er/sie/es ist gewesen', 'wir sind gewesen', 'ihr seid gewesen', 'sie/Sie sind gewesen'],
+                konjunktiv: ['ich wäre', 'du wärst', 'er/sie/es wäre', 'wir wären', 'ihr wärt', 'sie/Sie wären']
+            },
+            haben: {
+                type: 'Hilfsverb / Unregelmäßig',
+                translation: '(to have)',
+                aux: 'haben',
+                partizip: 'gehabt',
+                praesens: ['ich habe', 'du hast', 'er/sie/es hat', 'wir haben', 'ihr habt', 'sie/Sie haben'],
+                praeteritum: ['ich hatte', 'du hattest', 'er/sie/es hatte', 'wir hatten', 'ihr hattet', 'sie/Sie hatten'],
+                perfekt: ['ich habe gehabt', 'du hast gehabt', 'er/sie/es hat gehabt', 'wir haben gehabt', 'ihr habt gehabt', 'sie/Sie gehabt'],
+                konjunktiv: ['ich hätte', 'du hättest', 'er/sie/es hätte', 'wir hätten', 'ihr hättet', 'sie/Sie hätten']
+            },
+            werden: {
+                type: 'Hilfsverb / Stark',
+                translation: '(to become)',
+                aux: 'sein',
+                partizip: 'geworden',
+                praesens: ['ich werde', 'du wirst', 'er/sie/es wird', 'wir werden', 'ihr werdet', 'sie/Sie werden'],
+                praeteritum: ['ich wurde', 'du wurdest', 'er/sie/es wurde', 'wir wurden', 'ihr wurdet', 'sie/Sie wurden'],
+                perfekt: ['ich bin geworden', 'du bist geworden', 'er/sie/es ist geworden', 'wir sind geworden', 'ihr seid geworden', 'sie/Sie geworden'],
+                konjunktiv: ['ich würde', 'du würdest', 'er/sie/es würde', 'wir würden', 'ihr würdet', 'sie/Sie würden']
+            },
+            gehen: {
+                type: 'Starkes Verb',
+                translation: '(to go)',
+                aux: 'sein',
+                partizip: 'gegangen',
+                praesens: ['ich gehe', 'du gehst', 'er/sie/es geht', 'wir gehen', 'ihr geht', 'sie/Sie gehen'],
+                praeteritum: ['ich ging', 'du gingst', 'er/sie/es ging', 'wir gingen', 'ihr gingt', 'sie/Sie gingen'],
+                perfekt: ['ich bin gegangen', 'du bist gegangen', 'er/sie/es ist gegangen', 'wir sind gegangen', 'ihr seid gegangen', 'sie/Sie gegangen'],
+                konjunktiv: ['ich ginge', 'du gingest', 'er/sie/es ginge', 'wir gingen', 'ihr ginget', 'sie/Sie gingen']
+            },
+            sprechen: {
+                type: 'Starkes Verb mit Vokalwechsel',
+                translation: '(to speak)',
+                aux: 'haben',
+                partizip: 'gesprochen',
+                praesens: ['ich spreche', 'du sprichst', 'er/sie/es spricht', 'wir sprechen', 'ihr sprecht', 'sie/Sie sprechen'],
+                praeteritum: ['ich sprach', 'du sprachst', 'er/sie/es sprach', 'wir sprachen', 'ihr spracht', 'sie/Sie sprachen'],
+                perfekt: ['ich habe gesprochen', 'du hast gesprochen', 'er/sie/es hat gesprochen', 'wir haben gesprochen', 'ihr habt gesprochen', 'sie/Sie gesprochen'],
+                konjunktiv: ['ich spräche', 'du sprächest', 'er/sie/es spräche', 'wir sprächen', 'ihr sprächet', 'sie/Sie sprächen']
+            },
+            können: {
+                type: 'Modalverb',
+                translation: '(can / to be able to)',
+                aux: 'haben',
+                partizip: 'gekonnt',
+                praesens: ['ich kann', 'du kannst', 'er/sie/es kann', 'wir können', 'ihr könnt', 'sie/Sie können'],
+                praeteritum: ['ich konnte', 'du konntest', 'er/sie/es konnte', 'wir konnten', 'ihr konntet', 'sie/Sie konnten'],
+                perfekt: ['ich habe gekonnt', 'du hast gekonnt', 'er/sie/es hat gekonnt', 'wir haben gekonnt', 'ihr habt gekonnt', 'sie/Sie gekonnt'],
+                konjunktiv: ['ich könnte', 'du könntest', 'er/sie/es könnte', 'wir könnten', 'ihr könntet', 'sie/Sie könnten']
+            }
+        };
+
+        function loadVerb(verbKey) {
+            const verb = verbsDatabase[verbKey];
+            if (!verb) return;
+
+            document.getElementById('verbInfinitive').innerText = verbKey;
+            document.getElementById('verbTranslation').innerText = verb.translation;
+            document.getElementById('verbTypeBadge').innerText = verb.type;
+            document.getElementById('verbAuxiliary').innerText = verb.aux;
+            document.getElementById('verbPartizip').innerText = verb.partizip;
+
+            // Render tables
+            renderConjugationList('conjugationPraesens', verb.praesens);
+            renderConjugationList('conjugationPraeteritum', verb.praeteritum);
+            renderConjugationList('conjugationPerfekt', verb.perfekt);
+            renderConjugationList('conjugationKonjunktiv', verb.konjunktiv);
+
+            // Update preset active status
+            document.querySelectorAll('.verb-preset-btn').forEach(btn => {
+                if (btn.innerText.trim() === verbKey) {
+                    btn.classList.add('bg-brand-navy', 'text-white');
+                    btn.classList.remove('bg-gray-200', 'text-gray-800');
+                } else {
+                    btn.classList.remove('bg-brand-navy', 'text-white');
+                    btn.classList.add('bg-gray-200', 'text-gray-800');
+                }
+            });
+        }
+
+        function renderConjugationList(elemId, items) {
+            const container = document.getElementById(elemId);
+            container.innerHTML = items.map(i => `<li class="py-1 border-b border-slate-700/60 text-gray-200">${i}</li>`).join('');
+        }
+
+        function filterVerbs() {
+            const query = document.getElementById('verbSearchInput').value.toLowerCase().trim();
+            if (verbsDatabase[query]) {
+                loadVerb(query);
+            }
+        }
+
+        const quizQuestions = [
+            {
+                q: {
+                    de: "Er hilft _____ (der alte Mann) über die Straße.",
+                    en: "He helps _____ (the old man) across the street.",
+                    ru: "Он помогает _____ (пожилому мужчине) перейти дорогу."
+                },
+                topic: "Dativ Objekt",
+                options: ["dem alten Mann", "den alten Mann", "der alte Mann", "des alten Mannes"],
+                correct: 0,
+                explanation: {
+                    de: "Das Verb 'helfen' verlangt immer den Dativ (Wem?). Maskulin Dativ = dem alten Mann.",
+                    en: "The verb 'helfen' always requires the Dative case. Masculine Dative = dem alten Mann.",
+                    ru: "Глагол 'helfen' всегда требует дательного падежа (Dativ). Мужской род Dativ = dem alten Mann."
+                }
+            },
+            {
+                q: {
+                    de: "Welche Reihenfolge für Adverbien ist nach TeKaMoLo korrekt?",
+                    en: "Which sequence for adverbials is correct according to TeKaMoLo?",
+                    ru: "Какая последовательность обстоятельств правильна по TeKaMoLo?"
+                },
+                topic: "TeKaMoLo Satzbau",
+                options: [
+                    "heute (Te) - wegen des Wetters (Ka) - mit dem Auto (Mo) - nach Berlin (Lo)",
+                    "nach Berlin (Lo) - heute (Te) - mit dem Auto (Mo) - wegen des Wetters (Ka)",
+                    "mit dem Auto (Mo) - heute (Te) - nach Berlin (Lo) - wegen des Wetters (Ka)",
+                    "wegen des Wetters (Ka) - nach Berlin (Lo) - heute (Te) - mit dem Auto (Mo)"
+                ],
+                correct: 0,
+                explanation: {
+                    de: "Die Reihenfolge ist Temporal (heute) -> Kausal (wegen des Wetters) -> Modal (mit dem Auto) -> Lokal (nach Berlin).",
+                    en: "The correct order is Temporal (heute) -> Causal (wegen des Wetters) -> Modal (mit dem Auto) -> Local (nach Berlin).",
+                    ru: "Правильный порядок: Время (heute) -> Причина (wegen des Wetters) -> Способ (mit dem Auto) -> Место (nach Berlin)."
+                }
+            },
+            {
+                q: {
+                    de: "Was ist das Partizip II von 'gehen'?",
+                    en: "What is the Participle II form of 'gehen'?",
+                    ru: "Какова форма Причастия II (Partizip II) от 'gehen'?"
+                },
+                topic: "Verbformen",
+                options: ["gegangen", "gegeht", "ging", "gegangt"],
+                correct: 0,
+                explanation: {
+                    de: "'Gehen' ist ein starkes unregelmäßiges Verb: gehen - ging - ist gegangen.",
+                    en: "'Gehen' is a strong irregular verb: gehen - ging - ist gegangen.",
+                    ru: "'Gehen' — сильный неправильный глагол: gehen - ging - ist gegangen."
+                }
+            }
+        ];
+
+        let currentQuestionIdx = 0;
+        let quizScore = 0;
+
+        function renderQuizQuestion() {
+            const qObj = quizQuestions[currentQuestionIdx];
+            if (!qObj) return;
+
+            document.getElementById('quizQuestionNum').innerText = `Frage ${currentQuestionIdx + 1} von ${quizQuestions.length}`;
+            document.getElementById('quizTopicBadge').innerText = qObj.topic;
+            document.getElementById('quizProgressBar').style.width = `${((currentQuestionIdx + 1) / quizQuestions.length) * 100}%`;
+
+            const langQ = qObj.q[currentLang] || qObj.q.de;
+            document.getElementById('quizQuestionText').innerText = langQ;
+
+            const optsContainer = document.getElementById('quizOptionsContainer');
+            optsContainer.innerHTML = qObj.options.map((opt, i) => `
+                <button onclick="checkAnswer(${i})" class="p-3 bg-gray-50 hover:bg-gray-100 border border-gray-300 rounded-lg text-left text-xs font-semibold text-gray-800 transition flex items-center justify-between group">
+                    <span>${opt}</span>
+                    <i data-lucide="circle" class="w-4 h-4 text-gray-400 group-hover:text-brand-navy"></i>
+                </button>
+            `).join('');
+
+            document.getElementById('quizFeedbackBox').classList.add('hidden');
+            document.getElementById('nextQuizBtn').classList.add('hidden');
+            lucide.createIcons();
+        }
+
+        function checkAnswer(selectedIdx) {
+            const qObj = quizQuestions[currentQuestionIdx];
+            const feedbackBox = document.getElementById('quizFeedbackBox');
+            const feedbackTitle = document.getElementById('quizFeedbackTitle');
+            const feedbackText = document.getElementById('quizFeedbackText');
+
+            feedbackBox.classList.remove('hidden', 'bg-emerald-50', 'border-emerald-300', 'bg-red-50', 'border-red-300');
+
+            if (selectedIdx === qObj.correct) {
+                quizScore++;
+                feedbackBox.classList.add('bg-emerald-50', 'border-emerald-300');
+                feedbackTitle.innerText = "Richtig / Correct!";
+                feedbackTitle.className = "font-extrabold uppercase text-xs text-emerald-800";
+            } else {
+                feedbackBox.classList.add('bg-red-50', 'border-red-300');
+                feedbackTitle.innerText = "Falsch / Incorrect!";
+                feedbackTitle.className = "font-extrabold uppercase text-xs text-red-800";
+            }
+
+            const expl = qObj.explanation[currentLang] || qObj.explanation.de;
+            feedbackText.innerText = expl;
+
+            document.getElementById('scoreCounter').innerText = `${quizScore} / ${quizQuestions.length}`;
+            document.getElementById('nextQuizBtn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestionIdx++;
+            if (currentQuestionIdx < quizQuestions.length) {
+                renderQuizQuestion();
+            } else {
+                // End of quiz
+                document.getElementById('quizQuestionText').innerText = `Quiz Beendet! Ergebnis: ${quizScore} / ${quizQuestions.length}`;
+                document.getElementById('quizOptionsContainer').innerHTML = '';
+                document.getElementById('quizFeedbackBox').classList.add('hidden');
+                document.getElementById('nextQuizBtn').classList.add('hidden');
+            }
+        }
+
+        const vocabularyLibrary = [
+            { level: 'A1', de: 'Guten Tag, wie geht es Ihnen?', en: 'Good day, how are you?', ru: 'Добрый день, как у вас дела?' },
+            { level: 'A1', de: 'Ich möchte einen Kaffee bestellen.', en: 'I would like to order a coffee.', ru: 'Я хотел бы заказать кофе.' },
+            { level: 'A2', de: 'Könnten Sie mir bitte den Weg beschreiben?', en: 'Could you please describe the way to me?', ru: 'Не могли бы вы описать мне дорогу?' },
+            { level: 'B1', de: 'Obwohl es regnet, gehe ich im Park spazieren.', en: 'Although it is raining, I go for a walk in the park.', ru: 'Хотя идет дождь, я гуляю в парке.' },
+            { level: 'B2', de: 'Je mehr man übt, desto besser beherrscht man die Sprache.', en: 'The more one practices, the better one masters the language.', ru: 'Чем больше практикуешься, тем лучше владеешь языком.' },
+            { level: 'C1', de: 'Es lässt sich nicht leugnen, dass Grammatik Präzision erfordert.', en: 'It cannot be denied that grammar requires precision.', ru: 'Нельзя отрицать, что грамматика требует точности.' }
+        ];
+
+        function renderVocabularyGrid() {
+            const grid = document.getElementById('vocabGrid');
+            grid.innerHTML = vocabularyLibrary.map(item => `
+                <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between space-y-4 hover:border-brand-navy transition">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-brand-navy text-amber-300 text-[10px] font-black px-2 py-0.5 rounded font-mono">${item.level}</span>
+                            <button onclick="speakText('${item.de.replace(/'/g, "\\'")}')" class="p-2 bg-slate-100 hover:bg-slate-200 text-brand-navy rounded-full transition">
+                                <i data-lucide="volume-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                        <p class="text-sm font-bold text-slate-900 font-mono">${item.de}</p>
+                        <p class="text-xs text-gray-500 italic">${currentLang === 'ru' ? item.ru : item.en}</p>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        window.onload = function() {
+            lucide.createIcons();
+            
+            // Handle URL Hash Navigation
+            const hash = window.location.hash.replace('#', '');
+            if (pages.includes(hash)) {
+                showPage(hash);
+            } else {
+                showPage('home');
+            }
+
+            // Initialize default interactive components
+            updateCaseDisplay();
+            loadVerb('sein');
+            renderQuizQuestion();
+            renderVocabularyGrid();
+        };
+
+        window.onhashchange = function() {
+            const hash = window.location.hash.replace('#', '');
+            if (pages.includes(hash)) {
+                showPage(hash);
+            }
+        };
+    </script>
+</body>
+</html>
